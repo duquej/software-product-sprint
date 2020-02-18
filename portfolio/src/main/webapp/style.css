@@ -1,9 +1,79 @@
-#content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
+* {
+      margin: 0;
+      padding: 0;
+      border: none;
+      outline: none;
+      vertical-align: baseline;
+      font-size: 100%;
 }
 
-#greeting-container {
-  margin-top: 20px;
+body {
+      width: 100%;
+      background: #0E0E0E;
+}
+
+html {
+	font-family: Poppins;
+	
+}
+
+h1 {
+      color: #fff;
+      font-size: 48px;
+	  
+}
+
+p {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 300;
+}
+
+header {
+      margin: 100px 0 200px 100px;
+}
+
+header p {
+      width: 100%;
+      margin-top: 10px;
+}
+
+header img {
+	margin: 1%;
+    width: 55%;
+	
+	
+}
+
+.wrapper {
+      width: 60%;
+      margin: 0 auto;
+}
+
+
+.topnav {
+  background-color: #ffffff;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.topnav a {
+  float: left;
+  color: #2b2a2a;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a.active {
+  background-color: #e89c05;
+  color: white;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
 }
