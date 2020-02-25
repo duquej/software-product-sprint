@@ -27,21 +27,18 @@ import java.util.ArrayList;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  private ArrayList<String> messages;
+  private ArrayList<String> comments;
 
-  @Override
-  public void init(){
-    messages = new ArrayList<>();
-    messages.add("Today is 2/24/2020");
-    messages.add("Current Show: House");  
-    messages.add("Current week: 6");
-  }
-
+  
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String json = convertToJson(messages);
+    String json = convertToJson(comments);
     response.setContentType("application/json;");
     response.getWriter().println(json);
+  }
+
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
   }
 
   /**
