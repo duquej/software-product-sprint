@@ -19,10 +19,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+
+  private ArrayList<String> messages;
+
+  @Override
+  public void init(){
+    messages = new ArrayList<>();
+    messages.add("Today is 2/24/2020");
+    messages.add("Current Show: House");  
+    messages.add("It's week 6");
+  }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
