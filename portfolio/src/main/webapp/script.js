@@ -26,3 +26,12 @@ function addRandomGreeting() {
   const greetingContainer = document.getElementById('greeting-container');
   greetingContainer.innerText = greeting;
 }
+
+/**
+ * Displays a greeting to the front page.
+ */
+async function getGreeting(){
+    const response = await fetch('/data');
+    const greeting = await response.text();
+    document.getElementById('title').innerText = greeting;
+}
