@@ -35,3 +35,25 @@ async function getGreeting(){
     const greeting = await response.text();
     document.getElementById('title').innerText = greeting;
 }
+
+/**
+ * Displays messages retrieved from the server to
+ * the front page.
+ */
+async function getMessages(){
+  const response = await fetch('/data');
+  const json = await response.json();
+  const container = document.getElementById('message-container');
+  container.appendChild(createListElement(json[0]));
+  container.appendChild(createListElement(json[1]));
+  container.appendChild(createListElement(json[2]));
+}
+
+/**
+ * Creates a list element with the string [text]
+ */
+function createListElement(text){
+  const element = document.createElement('li');
+  element.innerText = text;
+  return element;
+} 
