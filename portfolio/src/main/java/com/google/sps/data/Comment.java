@@ -7,13 +7,13 @@ import java.util.Date;
  */
 public class Comment {
 
-  /*The comment left. */
+  /* The comment left. */
   private String comment;
 
-  /*The name of who left the comment. */
+  /* The name of who left the comment. */
   private String commenter;
  
-  /*The time and date when the comment was submitted.*/
+  /* The time and date when the comment was submitted. */
   private Date timeSubmitted;
 
   /** 
@@ -30,7 +30,6 @@ public class Comment {
   
   /**
    * Returns the comment left by the user.
-   * @return the comment submitted
    */
   public String getComment(){
     return comment;
@@ -38,7 +37,6 @@ public class Comment {
   
   /** 
    * Returns the commenter of the comment.
-   * @return the name of the person who left the comment.
    */
   public String getCommenter(){
     return commenter;
@@ -46,14 +44,13 @@ public class Comment {
 
   /** 
    * Returns the date/time that the comment was submitted.
-   * @return the time/date the comment was submitted.
    */
   public Date getTimeSubmitted(){
     return timeSubmitted;
   }
 
   /** 
-   * Sets the comment to [comment].
+   * Sets the comment to {@code comment}.
    * @param comment the comment that the user left.
    */
   public void setComment(String comment){
@@ -61,7 +58,7 @@ public class Comment {
   }
    
   /** 
-   * Sets the commenter to [commenter].
+   * Sets the commenter to {@code commenter}.
    * @param commenter the name of the person who left the comment.
    */
   public void setCommenter(String commenter){
