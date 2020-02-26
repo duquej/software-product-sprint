@@ -14,7 +14,7 @@ public class Comment {
   private String commenter;
  
   /* The time and date when the comment was submitted. */
-  private Date timeSubmitted;
+  private String timeSubmitted;
 
   /** 
    * Creates a new comment.
@@ -22,7 +22,7 @@ public class Comment {
    * @param commenter the user who left the comment.
    * @param timeSubmitted the time when a comment was submitted. 
    */
-  public Comment(String comment, String commenter, Date timeSubmitted){
+  public Comment(String comment, String commenter, String timeSubmitted){
     this.comment = comment;
     this.commenter = commenter;
     this.timeSubmitted = timeSubmitted;  
@@ -45,7 +45,7 @@ public class Comment {
   /** 
    * Returns the date/time that the comment was submitted.
    */
-  public Date getTimeSubmitted(){
+  public String getTimeSubmitted(){
     return timeSubmitted;
   }
 
@@ -69,7 +69,7 @@ public class Comment {
    * Sets the time submitted to [timeSubmitted].
    * @param commenter the time/date that the comment was left.
    */
-  public void setTimeSubmitted(Date timeSubmitted){
+  public void setTimeSubmitted(String timeSubmitted){
     this.timeSubmitted = timeSubmitted;
   }
 
