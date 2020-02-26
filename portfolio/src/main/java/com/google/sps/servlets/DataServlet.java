@@ -15,39 +15,47 @@
 package com.google.sps.servlets;
 
 import com.google.gson.Gson;
+import com.google.sps.data.Comment;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Date;
+
 
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  private ArrayList<String> messages;
-
-  @Override
-  public void init(){
-    messages = new ArrayList<>();
-    messages.add("Today is 2/24/2020");
-    messages.add("Current Show: House");  
-    messages.add("Current week: 6");
-  }
+  private ArrayList<Comment> comments = new ArrayList<Comment>();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String json = convertToJson(messages);
+    String json = convertToJson(comments);
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
+  }
+
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String message = request.getParameter("comment");
+    String commenter = request.getParameter("name");
+    Date currentTime = new Date();
+
+    Comment comment = new Comment(message,commenter,currentTime);
+    comments.add(comment);
+    String json = convertToJson(comments);
+
     response.setContentType("application/json;");
     response.getWriter().println(json);
   }
 
   /**
-   * Converts an ArrayList to Json.
+   * Converts an ArrayList of Comment objects to Json.
    */
-  public String convertToJson(ArrayList<String> lst){
+  private static String convertToJson(ArrayList<Comment> lst){
     Gson gson = new Gson();
     String json = gson.toJson(lst);
     return json;  
