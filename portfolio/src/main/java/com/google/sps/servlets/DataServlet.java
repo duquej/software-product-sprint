@@ -16,6 +16,9 @@ package com.google.sps.servlets;
 
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,14 +45,24 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String message = request.getParameter("comment");
     String commenter = request.getParameter("name");
-    Date currentTime = new Date();
+    String currentTime = new Date().toString();
 
-    Comment comment = new Comment(message,commenter,currentTime);
-    comments.add(comment);
-    String json = convertToJson(comments);
+    storeToDatabase(message,commenter,currentTime);
 
-    response.setContentType("application/json;");
-    response.getWriter().println(json);
+    response.sendRedirect("/index.html");
+  }
+
+  /**
+   * Stores a comment to the database using Datastore.
+   */
+  private static void storeToDatabase(String message, String commenter, String time){
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("comment",message);
+    commentEntity.setProperty("commenter", commenter);
+    commentEntity.setProperty("timeSubmitted",time);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(commentEntity);
   }
 
   /**
