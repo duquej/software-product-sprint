@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 
 
@@ -36,8 +37,6 @@ import java.util.Date;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  private ArrayList<Comment> comments = new ArrayList<Comment>();
-
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query query = new Query("Comment");
@@ -45,6 +44,7 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
+    ArrayList<Comment> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()){
       String message = (String) entity.getProperty("comment");
       String commenter = (String) entity.getProperty("commenter");
