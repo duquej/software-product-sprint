@@ -65,6 +65,10 @@ header img {
 
 .comments{
       overflow-y: auto;
+      height: 300px;
+      margin: 100px 0 100px 100px;
+
+
 }
 
 

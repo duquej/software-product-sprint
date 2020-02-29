@@ -56,7 +56,7 @@ async function getMessages(){
 function createListElement(comment){
   const element = document.createElement('li');
   element.className = "comment";
-  element.innerText = comment.commenter + ": " + comment.comment +
-    "\n Posted: " + comment.timeSubmitted;
+  element.innerText = comment.commenter + ": \n" + comment.comment +
+    "\n \n Posted: " + comment.timeSubmitted;
   return element;
 } 
