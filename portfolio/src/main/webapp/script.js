@@ -44,16 +44,19 @@ async function getMessages(){
   const response = await fetch('/data');
   const json = await response.json();
   const container = document.getElementById('message-container');
-  container.appendChild(createListElement(json[0]));
-  container.appendChild(createListElement(json[1]));
-  container.appendChild(createListElement(json[2]));
+  json.forEach(function(comment){
+    container.appendChild(createListElement(comment));
+
+  })
 }
 
 /**
- * Creates a list element with the string [text]
+ * Creates a list element for the comment.
  */
-function createListElement(text){
+function createListElement(comment){
   const element = document.createElement('li');
-  element.innerText = text;
+  element.className = "comment";
+  element.innerText = comment.commenter + ": \n" + comment.comment +
+    "\n \n Posted: " + comment.timeSubmitted;
   return element;
 } 
