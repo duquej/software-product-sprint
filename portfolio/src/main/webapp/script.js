@@ -54,7 +54,7 @@ async function getMessages(){
  * Displays the comment form if the user is logged in alongside
  * a logout link. Displays a login link if the user is not loggedin.
  */
-async function unhideCommentForm(){
+async function showCommentFormOrLoginLink(){
   const response = await fetch('/loginstatus');
   const json = await response.json();
   const isLoggedIn = json.loginstatus;
@@ -84,7 +84,7 @@ function displayLoginLogoutLink(msg,url){
  */
 function start(){
   getMessages();
-  unhideCommentForm();
+  showCommentFormOrLoginLink();
 }
 
 /**
