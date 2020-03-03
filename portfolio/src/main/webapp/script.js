@@ -51,6 +51,43 @@ async function getMessages(){
 }
 
 /**
+ * Displays the comment form if the user is logged in alongside
+ * a logout link. Displays a login link if the user is not loggedin.
+ */
+async function unhideCommentForm(){
+  const response = await fetch('/loginstatus');
+  const json = await response.json();
+  const isLoggedIn = json.loginstatus;
+  const url = json.url;
+  if (isLoggedIn) {
+    document.getElementById("comment-form").style.display="block";
+    displayLoginLogoutLink("logout", url);
+    
+  } else {
+    displayLoginLogoutLink("login", url);
+
+  }
+
+}
+
+/**
+ * Displays the login link {@code url} and the message {@code msg} below 
+ * the comment form.
+ */
+function displayLoginLogoutLink(msg,url){
+  const container = document.getElementById("comment-login-info");
+  container.innerHTML = msg+" <a href=\"" + url + "\">here</a>.</p>"
+}
+
+/**
+ * Functions called when the page is initially loaded.
+ */
+function start(){
+  getMessages();
+  unhideCommentForm();
+}
+
+/**
  * Creates a list element for the comment.
  */
 function createListElement(comment){

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body onload="getMessages()">
+  <body onload="start()">
 	<div class="topnav">
 	<a class="active" href="#home">Home</a>
 	<a href="https://www.linkedin.com/in/jonathan-duque-b4290b184/">LinkedIn</a>
@@ -63,7 +63,7 @@
        
       <header> 
         <h1>Leave a comment</h1>
-        <form action="/data" method="POST">
+        <form action="/data" method="POST" style="display: none" id="comment-form">
           <p>Your name:</p>
           <input type="text" name="name">
           <p>Your comment</p>
@@ -71,6 +71,8 @@
           <input type="submit" />
 
         </form>
+
+        <p id="comment-login-info"></p>
       </header>
 
 		
