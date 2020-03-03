@@ -22,6 +22,8 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,7 +41,7 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Comment");
+    Query query = new Query("Comment").addSort("sysTime", SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
@@ -49,8 +51,10 @@ public class DataServlet extends HttpServlet {
       String message = (String) entity.getProperty("comment");
       String commenter = (String) entity.getProperty("commenter");
       String timeSubmitted = (String) entity.getProperty("timeSubmitted");
+      String email = (String) entity.getProperty("email");
+      long sysTime = (long) entity.getProperty("sysTime");
 
-      Comment comment = new Comment(message,commenter,timeSubmitted);
+      Comment comment = new Comment(message,commenter,timeSubmitted,sysTime,email);
       comments.add(comment);
     }
     
@@ -60,11 +64,20 @@ public class DataServlet extends HttpServlet {
   }
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    UserService userService = UserServiceFactory.getUserService();
+
+    if (!userService.isUserLoggedIn()){
+      response.sendRedirect("/");
+      return;
+    }
+
+    String email = userService.getCurrentUser().getEmail();
     String message = request.getParameter("comment");
     String commenter = request.getParameter("name");
     String currentTime = new Date().toString();
+    long systemTime = System.currentTimeMillis(); 
 
-    storeToDatabase(message,commenter,currentTime);
+    storeToDatabase(message, commenter,currentTime, systemTime, email);
 
     response.sendRedirect("/index.html");
   }
@@ -72,11 +85,13 @@ public class DataServlet extends HttpServlet {
   /**
    * Stores a comment to the database using Datastore.
    */
-  private static void storeToDatabase(String message, String commenter, String time){
+  private static void storeToDatabase(String message, String commenter, String time, long sysTime, String email ){
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("comment",message);
     commentEntity.setProperty("commenter", commenter);
     commentEntity.setProperty("timeSubmitted",time);
+    commentEntity.setProperty("sysTime", sysTime);
+    commentEntity.setProperty("email", email);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
