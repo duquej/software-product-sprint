@@ -51,27 +51,33 @@ async function getMessages(){
 }
 
 /**
- * Hides the comment form if the user is not logged in.
- * Displays the comment form if the user is logged in.
+ * Displays the comment form if the user is logged in alongside
+ * a logout link. Displays a login link if the user is not loggedin.
  */
-function hideCommentForm(){
-  const isLoggedIn = fetchLoginStatus();
-  if (isLoggedIn) {
-    document.getElementById("comment-form").style.display="block";
-  } 
-
-}
-
-/** 
- * Fetches the login status of the user.
- */
- 
-async function fetchLoginStatusDetails(){
+async function unhideCommentForm(){
   const response = await fetch('/loginstatus');
   const json = await response.json();
   const isLoggedIn = json.loginstatus;
-  return isLoggedIn;
+  const url = json.url;
+  if (isLoggedIn) {
+    document.getElementById("comment-form").style.display="block";
+    displayLoginLogoutLink("logout", url);
+    
+  } else {
+    displayLoginLogoutLink("login", url);
 
+  }
+
+}
+
+function displayLoginLogoutLink(msg,url){
+  const container = document.getElementById("comment-login-info");
+  container.innerHTML = msg+" <a href=\"" + url + "\">here</a>.</p>"
+}
+
+function start(){
+  getMessages();
+  unhideCommentForm();
 }
 
 /**

@@ -27,7 +27,7 @@ public class LoginStatusServlet extends HttpServlet {
     }
 
     String isLoggedInJson = "{ \"loginstatus\" : "
-      +isLoggedIn+", \"url\" : "+url+" }";
+      +isLoggedIn+", \"url\" : \""+url+"\" }";
 
     response.getWriter().println(isLoggedInJson);
  
