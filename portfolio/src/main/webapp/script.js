@@ -70,11 +70,18 @@ async function unhideCommentForm(){
 
 }
 
+/**
+ * Displays the login link {@code url} and the message {@code msg} below 
+ * the comment form.
+ */
 function displayLoginLogoutLink(msg,url){
   const container = document.getElementById("comment-login-info");
   container.innerHTML = msg+" <a href=\"" + url + "\">here</a>.</p>"
 }
 
+/**
+ * Functions called when the page is initially loaded.
+ */
 function start(){
   getMessages();
   unhideCommentForm();
