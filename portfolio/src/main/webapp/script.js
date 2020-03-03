@@ -51,6 +51,30 @@ async function getMessages(){
 }
 
 /**
+ * Hides the comment form if the user is not logged in.
+ * Displays the comment form if the user is logged in.
+ */
+function hideCommentForm(){
+  const isLoggedIn = fetchLoginStatus();
+  if (isLoggedIn) {
+    document.getElementById("comment-form").style.display="block";
+  } 
+
+}
+
+/** 
+ * Fetches the login status of the user.
+ */
+ 
+async function fetchLoginStatusDetails(){
+  const response = await fetch('/loginstatus');
+  const json = await response.json();
+  const isLoggedIn = json.loginstatus;
+  return isLoggedIn;
+
+}
+
+/**
  * Creates a list element for the comment.
  */
 function createListElement(comment){

@@ -17,7 +17,18 @@ public class LoginStatusServlet extends HttpServlet {
     UserService userService = UserServiceFactory.getUserService();
 
     response.setContentType("application/json");
-    String isLoggedInJson = "{ \"login-status\" : "+userService.isUserLoggedIn()+" }";
+
+    Boolean isLoggedIn = userService.isUserLoggedIn();
+    String url = "";
+    if (isLoggedIn){
+      url = userService.createLogoutURL("/");
+    } else {
+      url = userService.createLoginURL("/");
+    }
+
+    String isLoggedInJson = "{ \"loginstatus\" : "
+      +isLoggedIn+", \"url\" : "+url+" }";
+
     response.getWriter().println(isLoggedInJson);
  
   }
