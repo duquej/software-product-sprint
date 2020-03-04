@@ -72,8 +72,15 @@ public class DataServlet extends HttpServlet {
     }
 
     String email = userService.getCurrentUser().getEmail();
+    String nickname = getUserNickname(email);
+
+    if (nickname == null) {
+      response.sendRedirect("/nickname");
+      return;
+    }
+
     String message = request.getParameter("comment");
-    String commenter = request.getParameter("name");
+    String commenter = nickname;
     String currentTime = new Date().toString();
     long systemTime = System.currentTimeMillis(); 
 
@@ -105,4 +112,24 @@ public class DataServlet extends HttpServlet {
     String json = gson.toJson(lst);
     return json;  
   }
+
+  /**
+   * Retrieves the nickname associated with the gmail account.
+   */
+  private String getUserNickname(String email) {
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    Query query = new Query("UserInfo");
+    query.setFilter(new Query.FilterPredicate("email", Query.FilterOperator.EQUAL, email));
+
+    PreparedQuery results = datastore.prepare(query);
+
+    Entity entity = results.asSingleEntity();
+    if (entity == null) {
+      return null;
+    }
+
+    String nickname = (String) entity.getProperty("nickname");
+    return nickname;
+  }
+
 }
