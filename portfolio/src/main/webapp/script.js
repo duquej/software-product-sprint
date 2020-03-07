@@ -76,7 +76,8 @@ async function showCommentFormOrLoginLink(){
  */
 function displayLoginLogoutLink(msg,url){
   const container = document.getElementById("comment-login-info");
-  container.innerHTML = msg+" <a href=\"" + url + "\">here</a>. Change nickname at /nickname</p>"
+  container.innerHTML = msg+" <a href=\"" + url 
+    + "\">here</a>. Change nickname <a href=\"nickname.html\">here</a></p>";
 }
 
 /**
