@@ -14,10 +14,10 @@ public class Comment {
   private String commenter;
  
   /* The time and date when the comment was submitted. */
-  private String timeSubmitted;
+  private String formattedTimeSubmitted;
 
   /* Millisecond time representation when the comment was submitted. */
-  private long sysTime;
+  private long timeSubmitted;
 
   /* The email address associated with the user who submitted the comment. */
   private String email;
@@ -33,8 +33,8 @@ public class Comment {
   public Comment(String comment, String commenter, String timeSubmitted, long sysTime, String email){
     this.comment = comment;
     this.commenter = commenter;
-    this.timeSubmitted = timeSubmitted;  
-    this.sysTime = sysTime;
+    this.formattedTimeSubmitted = timeSubmitted;  
+    this.timeSubmitted = sysTime;
     this.email = email;
   }
   
@@ -55,8 +55,8 @@ public class Comment {
   /** 
    * Returns the date/time that the comment was submitted.
    */
-  public String getTimeSubmitted(){
-    return timeSubmitted;
+  public String getFormattedTimeSubmitted(){
+    return formattedTimeSubmitted;
   }
 
   /** 
@@ -79,8 +79,8 @@ public class Comment {
    * Sets the time submitted to [timeSubmitted].
    * @param commenter the time/date that the comment was left.
    */
-  public void setTimeSubmitted(String timeSubmitted){
-    this.timeSubmitted = timeSubmitted;
+  public void setFormattedTimeSubmitted(String formattedTimeSubmitted){
+    this.formattedTimeSubmitted = formattedTimeSubmitted;
   }
 
   /**
@@ -100,15 +100,15 @@ public class Comment {
   /** 
    * Gets the time in milliseconds when the comment was submitted. 
    */
-  public long getSysTime(){
-    return sysTime;
+  public long getTimeSubmitted(){
+    return timeSubmitted;
   }
 
   /**
    * Sets the time in milliseconds of the comment.
    */
-  public void setSysTime(long sysTime){
-    this.sysTime = sysTime;
+  public void setTimeSubmitted(long timeSubmitted){
+    this.timeSubmitted = timeSubmitted;
   }
 
 
