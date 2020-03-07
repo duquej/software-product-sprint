@@ -19,22 +19,22 @@ public class NicknameServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html");
+    response.setContentType("application/json");
     PrintWriter out = response.getWriter();
-    out.println("<h1>Set Nickname</h1>");
 
+    String loginLogoutUrl = "";
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
+      loginLogoutUrl = userService.createLogoutURL("/");
       String nickname = getUserNickname(userService.getCurrentUser().getEmail());
-      out.println("<p>Set your nickname here:</p>");
-      out.println("<form method=\"POST\" action=\"/nickname\">");
-      out.println("<input name=\"nickname\" value=\"" + nickname + "\" />");
-      out.println("<br/>");
-      out.println("<button>Submit</button>");
-      out.println("</form>");
+      String json = createNicknameJson(loginLogoutUrl, nickname);
+      out.println(json);
+
     } else {
-      String loginUrl = userService.createLoginURL("/nickname");
-      out.println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
+      loginLogoutUrl = userService.createLoginURL("/nickname");
+      String json = createNicknameJson(loginLogoutUrl, null);
+      out.println(json);
+      
     }
   }
 
@@ -56,6 +56,11 @@ public class NicknameServlet extends HttpServlet {
     datastore.put(entity);
 
     response.sendRedirect("/");
+  }
+
+  private String createNicknameJson(String url, String nickname){
+    String json = "{ \"url \" : \""+url+"\", \"nickname\" : "+nickname+" }";
+    return json; 
   }
 
   /**
