@@ -24,15 +24,16 @@ public class NicknameServlet extends HttpServlet {
 
     String loginLogoutUrl = "";
     UserService userService = UserServiceFactory.getUserService();
-    if (userService.isUserLoggedIn()) {
+    boolean isLoggedIn = userService.isUserLoggedIn();
+    if (isLoggedIn) {
       loginLogoutUrl = userService.createLogoutURL("/");
       String nickname = getUserNickname(userService.getCurrentUser().getEmail());
-      String json = createNicknameJson(loginLogoutUrl, nickname);
+      String json = createNicknameJson(loginLogoutUrl, nickname, isLoggedIn);
       out.println(json);
 
     } else {
-      loginLogoutUrl = userService.createLoginURL("/nickname");
-      String json = createNicknameJson(loginLogoutUrl, null);
+      loginLogoutUrl = userService.createLoginURL("/nickname.html");
+      String json = createNicknameJson(loginLogoutUrl, null, isLoggedIn);
       out.println(json);
       
     }
@@ -58,8 +59,13 @@ public class NicknameServlet extends HttpServlet {
     response.sendRedirect("/");
   }
 
-  private String createNicknameJson(String url, String nickname){
-    String json = "{ \"url \" : \""+url+"\", \"nickname\" : "+nickname+" }";
+  /**
+   * Creates a json query with {@code url}, {@code nickname}, and {@code loggedin}
+   * Ex.  { "url" : /index.html, "nickname" : "john", "loggedin" : true }
+   */
+  private String createNicknameJson(String url, String nickname, boolean loggedin){
+    String json = "{ \"url\" : \""+url+"\", \"nickname\" : \""+nickname
+      +"\", \"loggedin\" : "+loggedin+" }";
     return json; 
   }
 

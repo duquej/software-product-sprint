@@ -3,10 +3,10 @@
     <meta charset="UTF-8">
     <title>Nickname Changer</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    <script src="nicknameFactory.js"></script>
   </head>
 
-  <body onload="">
+  <body onload="fetchAndDisplayNicknameInfo();">
 	<div class="topnav">
 	  <a href="index.html">Home</a>
 	  <a href="https://www.linkedin.com/in/jonathan-duque-b4290b184/">LinkedIn</a>
@@ -16,9 +16,10 @@
 
     <header>
       <div>
-        <p id="nickname-screen">Set your nickname:</p>
-        <form method="POST" action="/nickname">
-          <input name="nickname"/>
+        <h1 id="login-message"></h1>
+        <form method="POST" action="/nickname" style="display: none" id="nickname-form">
+          <p id="nickname-screen">Set your nickname:</p>
+          <input id= "nickname-input" name="nickname"/>
           <button>Submit</button>"
 
         </form>
