@@ -75,7 +75,7 @@ public class DataServlet extends HttpServlet {
     String nickname = getUserNickname(email);
 
     if (nickname == null) {
-      response.sendRedirect("/nickname");
+      response.sendRedirect("/nickname.html");
       return;
     }
 
