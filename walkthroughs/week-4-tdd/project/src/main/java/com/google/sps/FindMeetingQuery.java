@@ -79,8 +79,8 @@ public final class FindMeetingQuery {
 
 
   /**
-   * Returns true if there exists at least one meeting attendee from the {@code meeting_attendees} collection
-   * in the {@code event_attendees} collection. Returns false otherwise.
+   * Returns true if there exists at least one meeting attendee from the {@code meetingAttendees} collection
+   * in the {@code eventAttendees} collection. Returns false otherwise.
    */
   private Boolean areMeetingAttendeesInEvent(Collection<String> meetingAttendees, Collection<String> eventAttendees){
     for (String attendee : meetingAttendees) {
