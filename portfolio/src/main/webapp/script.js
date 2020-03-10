@@ -95,6 +95,6 @@ function createListElement(comment){
   const element = document.createElement('li');
   element.className = "comment";
   element.innerText = comment.commenter + ": \n" + comment.comment +
-    "\n \n Posted: " + comment.timeSubmitted;
+    "\n \n Posted: " + comment.formattedTimeSubmitted;
   return element;
 } 

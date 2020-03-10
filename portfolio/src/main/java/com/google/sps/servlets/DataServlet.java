@@ -49,9 +49,9 @@ public class DataServlet extends HttpServlet {
     ArrayList<Comment> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()){
       String message = (String) entity.getProperty("comment");
-      String commenter = (String) entity.getProperty("commenter");
-      String timeSubmitted = (String) entity.getProperty("timeSubmitted");
       String email = (String) entity.getProperty("email");
+      String commenter = getUserNickname(email);
+      String timeSubmitted = (String) entity.getProperty("timeSubmitted");
       long sysTime = (long) entity.getProperty("sysTime");
 
       Comment comment = new Comment(message,commenter,timeSubmitted,sysTime,email);
