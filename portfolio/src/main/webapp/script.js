@@ -98,3 +98,12 @@ function createListElement(comment){
     "\n \n Posted: " + comment.formattedTimeSubmitted;
   return element;
 } 
+
+async function fetchBlobstoreFormURL(){
+  const commentForm = document.getElementById('comment-form');
+  const response = await fetch('/blobstore-upload-url');
+  const imageURL = await response.text();
+
+  commentForm.action = imageURL;
+
+}
